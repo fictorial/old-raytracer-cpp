@@ -1,6 +1,7 @@
 # Rt - A simple raytracer in C++/Python
 
-  ~2002
+> This project is from 2003 and hasn't been maintained. Enjoy for what it's
+> worth!
 
 ![screenshot](https://raw.githubusercontent.com/fictorial/old-raytracer-cpp/master/Images/4to3film.png)
 ![screenshot](https://raw.githubusercontent.com/fictorial/old-raytracer-cpp/master/Images/big_spheres.png)
