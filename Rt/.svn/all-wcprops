@@ -1,0 +1,143 @@
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/projects/!svn/ver/187/raytracer/cpp-version/Rt
+END
+material.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/projects/!svn/ver/48/raytracer/cpp-version/Rt/material.cpp
+END
+plane.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/projects/!svn/ver/48/raytracer/cpp-version/Rt/plane.cpp
+END
+colors.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/projects/!svn/ver/48/raytracer/cpp-version/Rt/colors.cpp
+END
+output.png
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/projects/!svn/ver/48/raytracer/cpp-version/Rt/output.png
+END
+checker.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/projects/!svn/ver/48/raytracer/cpp-version/Rt/checker.cpp
+END
+setup.py
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/projects/!svn/ver/48/raytracer/cpp-version/Rt/setup.py
+END
+light.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/projects/!svn/ver/48/raytracer/cpp-version/Rt/light.cpp
+END
+Makefile.python
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/projects/!svn/ver/48/raytracer/cpp-version/Rt/Makefile.python
+END
+colormap.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/projects/!svn/ver/48/raytracer/cpp-version/Rt/colormap.cpp
+END
+tracer.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/projects/!svn/ver/48/raytracer/cpp-version/Rt/tracer.cpp
+END
+iprimitive.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/projects/!svn/ver/48/raytracer/cpp-version/Rt/iprimitive.cpp
+END
+pngcodec.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/projects/!svn/ver/48/raytracer/cpp-version/Rt/pngcodec.cpp
+END
+main.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/projects/!svn/ver/48/raytracer/cpp-version/Rt/main.cpp
+END
+spherical_mapping.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/projects/!svn/ver/48/raytracer/cpp-version/Rt/spherical_mapping.cpp
+END
+sphere.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/projects/!svn/ver/48/raytracer/cpp-version/Rt/sphere.cpp
+END
+world.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/projects/!svn/ver/48/raytracer/cpp-version/Rt/world.cpp
+END
+planar_mapping.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/projects/!svn/ver/48/raytracer/cpp-version/Rt/planar_mapping.cpp
+END
+camera.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/projects/!svn/ver/48/raytracer/cpp-version/Rt/camera.cpp
+END
+box.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/projects/!svn/ver/48/raytracer/cpp-version/Rt/box.cpp
+END
+v3.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/projects/!svn/ver/48/raytracer/cpp-version/Rt/v3.cpp
+END
+iimagecodec.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/projects/!svn/ver/48/raytracer/cpp-version/Rt/iimagecodec.cpp
+END
+Rt.i
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/projects/!svn/ver/48/raytracer/cpp-version/Rt/Rt.i
+END
+Makefile
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/projects/!svn/ver/48/raytracer/cpp-version/Rt/Makefile
+END

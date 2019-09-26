@@ -1,0 +1,78 @@
+
+Notes from Renderman Shaders:
+
+- Types of shaders:
+
+  - light shaders: calculates the color of light emitted from a point on 
+    the surface of the light.
+
+      - color (spectrum)
+      - intensity
+      - direction
+      - falloff
+
+  - surface shaders: based on incoming illumination and material properties,
+    these determine the color reflected from a surface.
+
+  - volume shaders: modify light ray as it travels through a medium or volume.
+
+  - displacement shaders: alter surface point (along normal)
+
+  - transformation shaders: non-linear xforms of points; camera projections
+
+  - image shaders (aka imagers): final pixel operations
+
+- Context:
+
+  - surface shader
+  - exterior volume shader (atmosphere)
+    - attenuates light influence
+  - interior volume shader 
+  - light sources
+    - lights can be attached to prims to create area light sources
+  - xform (linear, non-linear)
+  - displacement shader
+  - imager
+
+- Built in shaders:
+
+  - Light Shaders
+
+    - ambientlight
+    - distantlight
+    - pointlight
+    - spotlight
+
+  - Surface Shaders 
+
+    - constant
+    - matte
+    - metal
+    - shinymetal
+    - plastic
+    - paintedplastic
+
+  - Atmosphere
+
+    - fog
+    - depthcue
+
+  - Displacement
+
+    - bumpy
+
+- uniform vs varying parameters
+  - for specifying at vertices and interpolated across surface
+
+  - predefined set of varying parameters for each shader
+    we would set these as attribs in python shader objects before invoking
+    its shade() method
+
+- I is NOT normalized on entry to shaders. It is the distance b/w ray origin
+  and P.
+
+- faceforward() ?
+  opposite() ?
+
+***************************************
+

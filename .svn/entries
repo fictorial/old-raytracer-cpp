@@ -1,0 +1,79 @@
+9
+
+dir
+586
+http://svn.brianhammond.com/projects/raytracer/cpp-version
+http://svn.brianhammond.com/projects
+
+
+
+2008-07-03T02:41:21.187169Z
+187
+hammondb
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+e68a46c5-7a0d-0410-8a7d-b6ad172c45b9
+
+include
+dir
+
+Images
+dir
+
+Rt
+dir
+
+TODO
+file
+
+
+
+
+2008-11-04T00:21:44.000000Z
+688d5e91b101430b72ac37bc04466f44
+2008-01-21T14:43:01.667796Z
+48
+hammondb
+has-props
+
+res
+dir
+
+SHADERS
+file
+
+
+
+
+2008-11-04T00:21:44.000000Z
+7b7c4c8eb07aafac21511fc732afd797
+2008-01-21T14:43:01.667796Z
+48
+hammondb
+has-props
+
+README
+file
+
+
+
+
+2008-11-04T00:21:44.000000Z
+a3f1e39c52c2e7cfc6739b43b5755388
+2008-01-21T14:43:01.667796Z
+48
+hammondb
+has-props
+

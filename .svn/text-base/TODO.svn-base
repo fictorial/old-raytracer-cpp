@@ -1,0 +1,260 @@
+###############################################
+##                Rt TODO                    ##
+###############################################
+
+- reference counting resources
+
+  - materials
+  - inverse mapping instances
+  - boost::shared_ptr
+
+- singletons for world, codecs, tracer, etc
+
+- reflection color? trans. color?
+  attenuate reflection color with distance? same for trans?
+
+- shaders
+
+  - python for shader definitions
+  - python for the equivalent of a RIB
+
+  - make material abstract; rename to "shader"
+
+    - reference: http://www.bmrt.org/materials.h
+
+    - Move tracer's caps to trace rays and return hits to world, make world
+      a singleton, and expose this.  
+
+    - move tracer::shade out into shaders
+      Q: what about light parameters?  
+      tracer needs to loop over each light and call shade() for each light
+      and sum contributions?
+
+    - glass shader is typical recursive raytracer... 
+    - plastic shader: phong
+
+    - helper funcs for the above:
+
+      - matte(N, basecolor, ka, kd): basecolor * (ka*ambient() + kd*diffuse(N))
+        - diffuse() implicitly knows about the current light source I guess.
+
+      - plastic(N, basecolor, ka, kd, ks, roughness):
+        basecolor * (ka*ambient() + kd*diffuse(N)) +
+        (ks*specular(N,roughness))
+
+        - specular(N,V,roughness)
+          - V is -I
+          - roughness seems to be [0,1] with 0 smooth 1 very rough (or opp.?)
+        
+      - metal(N, basecolor, ka, kd, ks, roughness, spec):
+
+      - tracer would then do the following:
+
+        for y in h:
+          for x in w:
+            er = cam.eyeray(x,y)
+            hit = world.rayquery(er, FIRST)
+            c = hit.prim.shader.shade(hit)
+            out[x,y] = c
+    
+      - class hierarchy
+        shader [abstract]
+          whitted (does recursive raytracing w/ phong)
+          "glass shader" -- does refraction
+    
+    knows about reflectivity, diffuse and transmission
+    has an abstract shade() -- call it shader?
+
+      - Seems rman performs a REYES scanline algorithm and simply runs a 
+        shader at each point scan converted?
+
+    - Yes.  Follow rman ideas here.  Create funcs for various shading params
+      along with available globals (I,N,P,u,v,etc) and allow shaders to return
+      a color at a point.
+
+      - Funcs
+
+        shadow()
+        reflect(I, N)
+        refract(I, N, n1, n2)
+        diffuse(I, N)
+        specular(I, N, roughness)
+        step(a, x)
+        smoothstep(a, b, x)    x<a:0 x>b:1 else spline interp from a to b
+        filteredsmoothstep()
+        pulse()
+        pulsetrain()
+        smoothpulse()
+        smoothpulsetrain()
+        linstep(a, b, x)       x<a:0 x>b:1 else lerp x from a to b
+        hermite()
+        spline()   - can work with colors too
+        noise() [and noise2(), noise3() I would assume]
+        turbulence()
+        fBm() [?]
+        texture(filename) -- automatically use s,t to find color
+        mix()
+        blend()
+
+
+        These would be written in C/C++ for efficiency.
+    
+      - Input variables to shaders should be implicit to simplify calling
+        semantics.  In Python, this would be very easy; simply create attribs
+        in the shader object.  Once shader is called, get() attribs from 
+        shader for output values.
+
+        - Perhaps better to define as functions that return dicts?
+          Return 'Co':color(1,.5,.75), etc?
+
+        - Follow rman conventional names (Ci, Cs, Oi, Ct, Ka, Kd)
+    
+  - derive shaders from default:
+    Lambert, Phong, Blinn, Cook-Torrance, Hall, Ward, BRDF, Jensen
+  - derivatives need to trace rays; need access to tracer instance to do so;
+    or perhaps just to world database (via a world [ray] query).
+  - goal is to be able to write shaders in python (if slow, using pyrex)
+
+  - reflectivity? or just Ks? it _is_ SPECULAR reflection after all, no?
+  - reflection color?
+  - transmission color?
+
+- scene description language
+
+  - ultimately use python for creating scenes
+  - interim: use spirit parser?
+
+- lights
+
+  - refactor tracer, light into an abstract light class with an abstract
+    illuminate(point) method
+  - create subclasses for pointlight, dirlight, spotlight, arealight
+
+- texture mapping
+
+  + spherical
+  + planar
+    - problem along X=Y=Z=0 ... for checker textures, it's U=0,V=0 extending
+      in both U and V. thus get a double-dark-spot.
+  - cubic
+  - cylindrical
+    
+  - bilinear filtering for texel access (or better?)
+  - mipmapping needed?
+     
+  - procedural shaders
+    - checker
+    - marble
+    - perlin noise implementation
+     
+- groups
+
+  - object space -> world space transformation using matrices
+  - xform ray ws -> os; xform isect os -> ws
+  - transform class (m44 and it's inverse)
+  - mat44::inverse = adjoint() * 1/determinant() ?
+
+- known bugs
+
+  - materials that subclass material override completely local_illum.
+    need to be a combination... specifically, a subclass will set Io
+    which if doesn't contain full phong/lambert terms, will be incorrect.
+
+    - a shader should just return diffuse colors; the raytracer should 
+      worry about then use the diffuse colors in a regular term?
+
+      - or ... abstract base shader terms into functions phong(), diffuse(), 
+        etc... 
+
+      - How does renderman do this?
+
+  - camera lookat cannot look up/down directly -- need diff. up
+  - box refraction seems wrong since do not see internal faces at all.
+  - adding transparent shadows seems to have created a border around 
+    sphere edges. 
+  - planes in POV have -distance wrt Rt
+  - transparent objects inside other transparent objects; default IOR is a 
+    vacuum; no determination of whether or not camera starts in something else
+
+- primitives
+
+  - triangle / triangle mesh  (barycentric planes ala charles bloom)
+    - obj loader
+    - 3ds loader
+  - bounding volumes and bvh
+  - csg
+
+- jitter()
+
+  - Take an input vector, a grid size, and number of samples
+  - Return a list of vectors that stochastically samples the grid
+  - uses
+    - Antialiasing
+    - Soft shadows
+    - Blurry reflections
+
+- colormaps to replace terms of shading model
+
+  + texture map         Kd
+  - reflection map      Kr
+  - transparency map    Kt
+  - gloss map           Ks
+  - bump map            sp.N
+
+- colored shadows via transmission
+  = transmission through transparent prims (color the shadow?)
+    currently just scale the shadow factor; perhaps just scale a shadow color?
+    how would shadow_color fit into illumination
+
+= statistics
+  - avg ray time
+  - total time
+  - memory allocations; total alloc'd and freed; number of allocations
+    min/max allocation
+    - override new/delete
+  - bounding volume tests, % failed
+
+future:
+
+- texture mapping: controlling repeat, clamp (current: repeat all)
+
+- world query interface for determining what's seen, etc
+  - One of which is a ray-query ....
+
+- generalize Rt to have a raytracer shader view and also an opengl
+  view... the raytracer just raytraces the scene in order to visualize
+  it while the opengl view sends the data to a graphics card...
+
+- integrate ODE and SMPEG in order to create simple movies
+  - camera animation using splines, quats, keyframes
+
+- one such movie could be to orbit a scene...
+  - camera position is moved along a circle at a certain height and radius
+    around a target; render a frame each camera update
+
+python:
+
+- Build as Python extension using distutils and SWIG or PyRex
+
+- Main program is a Python app... All cmdline opts, config files, etc
+  are to be passed to this app.  The app loads the Rt module (an extension)
+  and sets options in it.
+
+- SDL is Python itself; create worlds programmatically using Python
+  
+- Create a daemon that helps render portions of each frame
+  - Pickle/shelve the world file and send over network to Rt-clients.
+  - Work queue is a rect of the output image (x,y,w,h).
+  - After tracing, clients send back a block of color.
+
+  - Use ADAM7 interlacing scheme for distributing workload? (from PNG)
+
++ Allow for an interactive previewer written in Python that uses PyGame (SDL)
+  for display of the image as it is being raytraced.
+
+  - RtCore will have to add a tracer level observer list that gets called back;
+    One such observer will be a Python callable.  Is this supported in SWIG?
+
+- autoconf check for libpng, swig, zlib, python2.3+
+
+vim:ft=text fen fdm=marker
